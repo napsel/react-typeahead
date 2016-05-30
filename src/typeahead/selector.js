@@ -17,7 +17,9 @@ var TypeaheadSelector = React.createClass({
     displayOption: React.PropTypes.func.isRequired,
     defaultClassNames: React.PropTypes.bool,
     areResultsTruncated: React.PropTypes.bool,
-    resultsTruncatedMessage: React.PropTypes.string
+    resultsTruncatedMessage: React.PropTypes.string,
+    emptyMessage: React.PropTypes.string,
+    emptyOnClick: React.PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -27,13 +29,16 @@ var TypeaheadSelector = React.createClass({
       allowCustomValues: 0,
       customValue: null,
       onOptionSelected: function(option) { },
-      defaultClassNames: true
+      defaultClassNames: true,
+      emptyMessage: "No results found.",
+      emptyOnClick: function(){}
     };
   },
 
   render: function() {
     // Don't render if there are no options to display
-    if (!this.props.options.length && this.props.allowCustomValues <= 0) {
+    if (!this.props.options.length && this.props.allowCustomValues <= 0
+        && !this.props.emptyMessage) {
       return false;
     }
 
@@ -84,6 +89,11 @@ var TypeaheadSelector = React.createClass({
           {this.props.resultsTruncatedMessage}
         </li>
       );
+    }
+
+    if (!results.length && this.props.customValue == null && this.props.emptyMessage) {
+      customValue = <TypeaheadOption customClasses={{listItem: "typeahead-option-empty"}}
+                      onClick={this.props.emptyOnClick}>{this.props.emptyMessage}</TypeaheadOption>
     }
 
     return (

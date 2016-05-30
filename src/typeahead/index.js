@@ -54,7 +54,10 @@ var Typeahead = React.createClass({
       React.PropTypes.element,
       React.PropTypes.func
     ]),
-    showOptionsWhenEmpty: React.PropTypes.bool
+    showOptionsWhenEmpty: React.PropTypes.bool,
+    focusOnSelect: React.PropTypes.bool,
+    emptyMessage: React.PropTypes.string,
+    emptyOnClick: React.PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -81,7 +84,8 @@ var Typeahead = React.createClass({
       defaultClassNames: true,
       customListComponent: TypeaheadSelector,
       showOptionsWhenEmpty: false,
-      resultsTruncatedMessage: null
+      resultsTruncatedMessage: null,
+      focusOnSelect: false
     };
   },
 
@@ -168,7 +172,9 @@ var Typeahead = React.createClass({
         customClasses={this.props.customClasses}
         selectionIndex={this.state.selectionIndex}
         defaultClassNames={this.props.defaultClassNames}
-        displayOption={Accessor.generateOptionToStringFor(this.props.displayOption)} />
+        displayOption={Accessor.generateOptionToStringFor(this.props.displayOption)}
+        emptyMessage={this.props.emptyMessage}
+        emptyOnClick={this.props.emptyOnClick} />
     );
   },
 
@@ -186,7 +192,9 @@ var Typeahead = React.createClass({
 
   _onOptionSelected: function(option, event) {
     var nEntry = this.refs.entry;
-    nEntry.focus();
+    if (this.props.focusOnSelect) {
+      nEntry.focus();
+    }
 
     var displayOption = Accessor.generateOptionToStringFor(this.props.inputDisplayOption || this.props.displayOption);
     var optionString = displayOption(option, 0);
