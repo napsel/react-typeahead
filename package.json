@@ -67,7 +67,8 @@
     "test:react:15": "npm run react:15 && npm test",
     "test:all": "npm run test:react:14 && npm run test:react:15",
     "lib": "gulp build",
-    "prepublish": "npm run lib"
+    "prepublish": "npm run lib",
+    "postinstall": "npm run lib"
   },
   "literalify": {
     "react": "window.React || require('react')"
