@@ -35,7 +35,7 @@
     "classnames": "^1.2.0",
     "fuzzy": "^0.1.0",
     "gulp-babel": "^6.1.2",
-    "gulp-mocha-phantomjs": "^0.8.1",
+    "gulp-mocha-phantomjs": "^0.8.1"
   },
   "peerDependencies": {
     "react": ">= 0.14"
