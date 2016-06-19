@@ -33,7 +33,9 @@
   },
   "dependencies": {
     "classnames": "^1.2.0",
-    "fuzzy": "^0.1.0"
+    "fuzzy": "^0.1.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-mocha-phantomjs": "^0.8.1",
   },
   "peerDependencies": {
     "react": ">= 0.14"
@@ -46,8 +48,6 @@
     "chai": "^1.9.1",
     "es5-shim": "^4.0.1",
     "gulp": "^3.8.7",
-    "gulp-babel": "^6.1.2",
-    "gulp-mocha-phantomjs": "^0.8.1",
     "literalify": "^0.4.0",
     "lodash": "^2.4.1",
     "mocha": "^1.21.4",
