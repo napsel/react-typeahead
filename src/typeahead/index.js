@@ -122,7 +122,8 @@ var Typeahead = React.createClass({
     if (this._shouldSkipSearch(value)) { return []; }
 
     var searchOptions = this._generateSearchFunction();
-    return searchOptions(value, options);
+    result = searchOptions(value, options);
+    return result;
   },
 
   setEntryText: function(value) {
