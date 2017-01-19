@@ -68,23 +68,23 @@ if (typeof exports !== 'undefined') {
 // Return all elements of `array` that have a fuzzy
 // match against `pattern`.
 fuzzy.simpleFilter = function(pattern, array) {
-  return array.filter(function(string) {
-    return fuzzy.test(pattern, string);
+  return array.filter(function(str) {
+    return fuzzy.test(pattern, str);
   });
 };
 
-// Does `pattern` fuzzy match `string`?
-fuzzy.test = function(pattern, string) {
-  return fuzzy.match(pattern, string) !== null;
+// Does `pattern` fuzzy match `str`?
+fuzzy.test = function(pattern, str) {
+  return fuzzy.match(pattern, str) !== null;
 };
 
-// If `pattern` matches `string`, wrap each matching character
+// If `pattern` matches `str`, wrap each matching character
 // in `opts.pre` and `opts.post`. If no match, return null
-fuzzy.match = function(pattern, string, opts) {
+fuzzy.match = function(pattern, str, opts) {
   opts = opts || {};
   var patternIdx = 0
     , result = []
-    , len = string.length
+    , len = str.length
     , totalScore = 0
     , currScore = 0
     // prefix
@@ -93,15 +93,15 @@ fuzzy.match = function(pattern, string, opts) {
     , post = opts.post || ''
     // String to compare against. This might be a lowercase version of the
     // raw string
-    , compareString =  opts.caseSensitive && string || string.toLowerCase()
-    , ch, compareChar;
+    , compareString =  opts.caseSensitive && str || str.toLowerCase()
+    , ch;
 
   pattern = opts.caseSensitive && pattern || pattern.toLowerCase();
 
   // For each character in the string, either add it to the result
   // or wrap in template if it's the next string in the pattern
   for(var idx = 0; idx < len; idx++) {
-    ch = string[idx];
+    ch = str[idx];
     if(compareString[idx] === pattern[patternIdx]) {
       ch = pre + ch + post;
       patternIdx += 1;
@@ -117,6 +117,8 @@ fuzzy.match = function(pattern, string, opts) {
 
   // return rendered string if we have a match for every char
   if(patternIdx === pattern.length) {
+    // if the string is an exact match with pattern, totalScore should be maxed
+    totalScore = (compareString === pattern) ? Infinity : totalScore;
     return {rendered: result.join(''), score: totalScore};
   }
 
@@ -148,6 +150,12 @@ fuzzy.match = function(pattern, string, opts) {
 //      , extract: function(arg) { return arg.crying; }
 //    }
 fuzzy.filter = function(pattern, arr, opts) {
+  if(!arr || arr.length === 0) {
+    return [];
+  }
+  if (typeof pattern !== 'string') {
+    return arr;
+  }
   opts = opts || {};
   return arr
     .reduce(function(prev, element, idx, arr) {
@@ -509,7 +517,7 @@ var Token = React.createClass({
           this.props.onRemove(this.props.object);
           event.preventDefault();
         }.bind(this) },
-      '×'
+      '\xD7'
     );
   }
 });
@@ -632,7 +640,7 @@ var Typeahead = React.createClass({
     }
 
     var searchOptions = this._generateSearchFunction();
-		result = searchOptions(value, options);
+    result = searchOptions(value, options);
     return result;
   },
 
