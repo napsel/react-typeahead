@@ -1,6 +1,6 @@
 {
   "name": "react-typeahead",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "React-based typeahead and typeahead-tokenizer",
   "keywords": [
     "react",
@@ -37,6 +37,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "classnames": "^1.2.0",
     "fuzzy": "^0.1.0",
+    "gulp": "^3.8.7",
     "gulp-babel": "^6.1.2",
     "lodash": "^2.4.2",
     "react": "^15.4.2"
@@ -50,7 +51,6 @@
     "browserify": "^8.0.2",
     "chai": "^1.9.1",
     "es5-shim": "^4.0.1",
-    "gulp": "^3.8.7",
     "literalify": "^0.4.0",
     "react-tools": "^0.13.3",
     "sinon": "^1.10.3",
